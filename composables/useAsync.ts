@@ -1,6 +1,31 @@
 import { useReducer, useEffect } from 'react'
 
-function reducer(state, action) {
+type LoadingAction = {
+  type: 'LOADING'
+}
+
+type SuccessAction<T> = {
+  type: 'SUCCESS'
+  data: T
+}
+
+type ErrorAction<T> = {
+  type: 'ERROR'
+  error: T
+}
+
+type AsyncAction<D, E> = LoadingAction | SuccessAction<D> | ErrorAction<E>
+
+export type AsyncState<D, E> = {
+  loading: boolean
+  data: D | null
+  error: E | null
+}
+
+function reducer<D, E>(
+  state: AsyncState<D, E>,
+  action: AsyncAction<D, E>
+): AsyncState<D, E> {
   switch (action.type) {
     case 'LOADING':
       return {
@@ -20,35 +45,45 @@ function reducer(state, action) {
         data: null,
         error: action.error
       }
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`)
   }
 }
 
-function useAsync(callback, deps = []) {
+type Callback<T> = (...args: any) => Promise<T>
+
+function useAsync<D, E, F extends Callback<D>>(
+  callback: F,
+  params: Parameters<F>,
+  deps: any[]
+) {
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
-    error: false
-  })
+    error: null
+  } as AsyncState<D, E>)
 
-  const fetchData = async () => {
+  const fetchData =  async (...params: Parameters<F>) => {
     dispatch({ type: 'LOADING' })
     try {
-      const data = await callback()
-      dispatch({ type: 'SUCCESS', data })
+      const data = await callback(...params)
+      dispatch({
+        type: 'SUCCESS',
+        data
+      })
     } catch (e) {
-      dispatch({ type: 'ERROR', error: e })
+      dispatch({
+        type: 'ERROR',
+        error: e
+      })
     }
   }
 
   useEffect(() => {
-    fetchData()
+    fetchData(...params)
     // eslint 설정을 다음 줄에서만 비활성화
     // eslint-disable-next-line
   }, deps)
-
-  return [state, fetchData]
+  
+  return [state, fetchData] as const
 }
 
 export default useAsync
