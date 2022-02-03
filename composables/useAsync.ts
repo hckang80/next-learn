@@ -45,6 +45,8 @@ function reducer<D, E>(
         data: null,
         error: action.error
       }
+    default:
+      throw new Error('Unhandled action')
   }
 }
 
@@ -52,8 +54,8 @@ type Callback<T> = (...args: any) => Promise<T>
 
 function useAsync<D, E, F extends Callback<D>>(
   callback: F,
-  params: Parameters<F>,
-  deps: any[]
+  params = [],
+  deps = []
 ) {
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
@@ -61,7 +63,7 @@ function useAsync<D, E, F extends Callback<D>>(
     error: null
   } as AsyncState<D, E>)
 
-  const fetchData =  async (...params: Parameters<F>) => {
+  const fetchData =  async (...params: Parameters<F> | never[]) => {
     dispatch({ type: 'LOADING' })
     try {
       const data = await callback(...params)
@@ -79,7 +81,6 @@ function useAsync<D, E, F extends Callback<D>>(
 
   useEffect(() => {
     fetchData(...params)
-    // eslint 설정을 다음 줄에서만 비활성화
     // eslint-disable-next-line
   }, deps)
   
