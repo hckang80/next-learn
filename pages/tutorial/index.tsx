@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 
 export type Categories =
@@ -41,11 +41,11 @@ export default function MyItems() {
 
   const allCategories: Categories[] = [ALL, ...categories]
 
-  // const [selectedCategory, setCategory] = useState(ALL);
+  const [selectedCategory, setCategory] = useState(ALL);
 
-  // const selectCategory = (category: Categories) => {
-  //   selectedCategory !== category && setCategory(category)
-  // }
+  const selectCategory = (category: Categories) => {
+    selectedCategory !== category && setCategory(category)
+  }
 
   // const filteredProducts = () => selectedCategory !== ALL
   //   ? products.filter(({ category }) => category === selectedCategory)
@@ -82,7 +82,7 @@ export default function MyItems() {
           <li
             className='main-categories__item'
             key={category}>
-            <button>
+            <button onClick={() => selectCategory(category)}>
               {category}
             </button>
           </li>
