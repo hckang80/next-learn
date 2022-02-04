@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
+import BaseListItem from '@/components/BaseListItem'
 
 export type Categories =
   'all' |
@@ -91,10 +92,20 @@ export default function MyItems() {
 
       <form>
         <ul className="main-products">
-          {filteredProducts.map(product => (
-            <li key={product.id}>
-              {product.title}
-            </li>
+          {filteredProducts.map(({
+            id,
+            image,
+            title
+          }) => (
+            <BaseListItem
+              key={id}
+              image={image}
+              title={title}>
+              <input type="checkbox" />
+              <span className="backdrop">
+                <div className="icon-heart"></div>
+              </span>
+            </BaseListItem>
           ))}
         </ul>
         <div className="head-button">
