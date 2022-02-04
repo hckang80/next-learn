@@ -3,6 +3,7 @@ import React from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 
 export type Categories =
+  'all' |
   'electronics' |
   'jewelery' |
   'men\'s clothing' |
@@ -34,13 +35,11 @@ export default function MyItems() {
 
   const { loading, data, error } = state as AsyncState<[Categories[], Product[]], unknown>
 
-  const [categories, products] = data || []
+  const [categories = [], products = []] = data || []
 
-  console.log({ categories, products })
+  const ALL = 'all'
 
-  // const ALL = 'all'
-
-  // const allCategories: Categories[] = [ALL, ...categories]
+  const allCategories: Categories[] = [ALL, ...categories]
 
   // const [selectedCategory, setCategory] = useState(ALL);
 
@@ -77,6 +76,18 @@ export default function MyItems() {
           매일 취향에 맞는 상품을 찾아올게요!
         </p>
       </header>
+
+      <ul className="main-categories">
+        {allCategories?.map(category => (
+          <li
+            className='main-categories__item'
+            key={category}>
+            <button>
+              {category}
+            </button>
+          </li>
+        ))}
+      </ul>
     </article>
   )
 }
