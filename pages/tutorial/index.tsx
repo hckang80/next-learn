@@ -80,7 +80,7 @@ export default function MyItems() {
       <ul className="main-categories">
         {allCategories?.map(category => (
           <li
-            className='main-categories__item'
+            className={`main-categories__item${selectedCategory === category && ' is-active'}`}
             key={category}>
             <button onClick={() => selectCategory(category)}>
               {category}
