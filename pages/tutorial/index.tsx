@@ -47,9 +47,9 @@ export default function MyItems() {
     selectedCategory !== category && setCategory(category)
   }
 
-  // const filteredProducts = () => selectedCategory !== ALL
-  //   ? products.filter(({ category }) => category === selectedCategory)
-  //   : products
+  const filteredProducts = selectedCategory !== ALL
+    ? products.filter(({ category }) => category === selectedCategory)
+    : products
 
   // const checkedProducts = ref<number[]>([])
   // const [checkedProducts, setProduct] = useState([]);
@@ -88,6 +88,19 @@ export default function MyItems() {
           </li>
         ))}
       </ul>
+
+      <form>
+        <ul className="main-products">
+          {filteredProducts.map(product => (
+            <li key={product.id}>
+              {product.title}
+            </li>
+          ))}
+        </ul>
+        <div className="head-button">
+          <button>선택완료</button>
+        </div>
+      </form>
     </article>
   )
 }
