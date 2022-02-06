@@ -1,5 +1,6 @@
 import React, { type ReactNode } from 'react'
 import Image from 'next/image'
+import styles from '@/styles/tutorial.module.scss'
 
 type Props = {
   children?: ReactNode
@@ -9,8 +10,8 @@ type Props = {
 
 function BaseListItem ({ children, image, title }: Props) {
   return (
-    <li className="main-products__item">
-      <label className="main-products__wrap">
+    <li className={styles['main-products__item']}>
+      <label className={styles['main-products__wrap']}>
         {children}
         <Image
           src={image}
