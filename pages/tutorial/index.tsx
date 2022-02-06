@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react'
+import styles from '@/styles/tutorial.module.scss'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import BaseListItem from '@/components/BaseListItem'
 
@@ -66,22 +67,22 @@ export default function MyItems() {
   //   });
   // };
   return (
-    <article className="select-my-style">
-      <header className="select-my-style__header">
+    <article className={styles['select-my-style']}>
+      <header className={styles['select-my-style__header']}>
         <h1 hidden>
           내 스타일 선택하기
         </h1>
-        <div className="icon-heart"></div>
+        <div className={styles['icon-heart']}></div>
         <p>
           <strong>좋아하는 스타일을<br /> 알려주세요.</strong>
           매일 취향에 맞는 상품을 찾아올게요!
         </p>
       </header>
 
-      <ul className="main-categories">
+      <ul className={styles['main-categories']}>
         {allCategories?.map(category => (
           <li
-            className={`main-categories__item${selectedCategory === category && ' is-active'}`}
+            className={`${styles['main-categories__item']} ${selectedCategory === category ? styles['is-active'] : ''}`}
             key={category}>
             <button onClick={() => selectCategory(category)}>
               {category}
@@ -91,7 +92,7 @@ export default function MyItems() {
       </ul>
 
       <form>
-        <ul className="main-products">
+        <ul className={styles['main-products']}>
           {filteredProducts.map(({
             id,
             image,
@@ -108,7 +109,7 @@ export default function MyItems() {
             </BaseListItem>
           ))}
         </ul>
-        <div className="head-button">
+        <div className={styles['head-button']}>
           <button>선택완료</button>
         </div>
       </form>
