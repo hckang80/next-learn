@@ -54,19 +54,16 @@ export default function MyItems() {
     ? products.filter(({ category }) => category === selectedCategory)
     : products
 
-  // const checkedProducts = ref<number[]>([])
-  // const [checkedProducts, setProduct] = useState([]);
+  const [checkedProducts, setProduct] = useState<number[]>([]);
 
-  // const saveMyStyles = () => {
-  //   set(localStorage, 'myStyles', JSON.stringify(checkedProducts))
-  //   router.push('/tutorial/my-store')
-  // }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target
+    const getValues = checked
+      ? [...checkedProducts, +value]
+      : checkedProducts.filter(id => id !== +value)
+    setProduct(getValues)
+  }
 
-  // const listComponent = (allCategories: Categories[]) => {
-  //   return allCategories.map((category) => {
-  //     return (<li key={category}>{category}</li>);
-  //   });
-  // };
   return (
     <Layout>
       <article className={styles['select-my-style']}>
@@ -104,7 +101,7 @@ export default function MyItems() {
                 key={id}
                 image={image}
                 title={title}>
-                <input type="checkbox" />
+                <input type="checkbox" onChange={onChange} value={id} />
                 <span className="backdrop">
                   <div className="icon-heart"></div>
                 </span>
