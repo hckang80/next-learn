@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import styles from '@/styles/tutorial.module.scss'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
+import Layout from '@/components/Layout'
 import BaseListItem from '@/components/BaseListItem'
 
 export type Categories =
@@ -67,52 +68,54 @@ export default function MyItems() {
   //   });
   // };
   return (
-    <article className={styles['select-my-style']}>
-      <header className={styles['select-my-style__header']}>
-        <h1 hidden>
-          내 스타일 선택하기
-        </h1>
-        <div className={styles['icon-heart']}></div>
-        <p>
-          <strong>좋아하는 스타일을<br /> 알려주세요.</strong>
-          매일 취향에 맞는 상품을 찾아올게요!
-        </p>
-      </header>
+    <Layout>
+      <article className={styles['select-my-style']}>
+        <header className={styles['select-my-style__header']}>
+          <h1 hidden>
+            내 스타일 선택하기
+          </h1>
+          <div className={styles['icon-heart']}></div>
+          <p>
+            <strong>좋아하는 스타일을<br /> 알려주세요.</strong>
+            매일 취향에 맞는 상품을 찾아올게요!
+          </p>
+        </header>
 
-      <ul className={styles['main-categories']}>
-        {allCategories?.map(category => (
-          <li
-            className={`${styles['main-categories__item']} ${selectedCategory === category ? styles['is-active'] : ''}`}
-            key={category}>
-            <button onClick={() => selectCategory(category)}>
-              {category}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <form>
-        <ul className={styles['main-products']}>
-          {filteredProducts.map(({
-            id,
-            image,
-            title
-          }) => (
-            <BaseListItem
-              key={id}
-              image={image}
-              title={title}>
-              <input type="checkbox" />
-              <span className="backdrop">
-                <div className="icon-heart"></div>
-              </span>
-            </BaseListItem>
+        <ul className={styles['main-categories']}>
+          {allCategories?.map(category => (
+            <li
+              className={`${styles['main-categories__item']} ${selectedCategory === category ? styles['is-active'] : ''}`}
+              key={category}>
+              <button onClick={() => selectCategory(category)}>
+                {category}
+              </button>
+            </li>
           ))}
         </ul>
-        <div className={styles['head-button']}>
-          <button>선택완료</button>
-        </div>
-      </form>
-    </article>
+
+        <form>
+          <ul className={styles['main-products']}>
+            {filteredProducts.map(({
+              id,
+              image,
+              title
+            }) => (
+              <BaseListItem
+                key={id}
+                image={image}
+                title={title}>
+                <input type="checkbox" />
+                <span className="backdrop">
+                  <div className="icon-heart"></div>
+                </span>
+              </BaseListItem>
+            ))}
+          </ul>
+          <div className={styles['head-button']}>
+            <button>선택완료</button>
+          </div>
+        </form>
+      </article>
+    </Layout>
   )
 }
