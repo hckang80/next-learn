@@ -73,7 +73,7 @@ export default function MyItems() {
           </h1>
           <div className={styles['icon-heart']}></div>
           <p>
-            <strong>좋아하는 스타일을<br /> 알려주세요.</strong>
+            <strong className="block">좋아하는 스타일을<br /> 알려주세요.</strong>
             매일 취향에 맞는 상품을 찾아올게요!
           </p>
         </header>
@@ -102,8 +102,8 @@ export default function MyItems() {
                 image={image}
                 title={title}>
                 <input type="checkbox" onChange={onChange} value={id} />
-                <span className="backdrop">
-                  <div className="icon-heart"></div>
+                <span className={styles['backdrop']}>
+                  <div className={`icon-heart ${styles['icon-heart']}`}></div>
                 </span>
               </BaseListItem>
             ))}
