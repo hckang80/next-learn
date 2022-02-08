@@ -33,7 +33,7 @@ async function getProducts() {
   return response
 }
 
-export default function MyItems() {
+function Tutorial() {
   const [state, refetch] = useAsync(getProducts);
 
   const { loading, data, error } = state as AsyncState<[Categories[], Product[]], unknown>
@@ -116,3 +116,5 @@ export default function MyItems() {
     </Layout>
   )
 }
+
+export default Tutorial
