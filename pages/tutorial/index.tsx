@@ -65,7 +65,7 @@ export default function MyItems() {
   }
 
   return (
-    <Layout>
+    <Layout className={styles['tutorial']}>
       <article className={styles['select-my-style']}>
         <header className={styles['select-my-style__header']}>
           <h1 hidden>

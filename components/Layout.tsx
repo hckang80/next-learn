@@ -3,9 +3,10 @@ import Head from 'next/head'
 
 type Props = {
   children?: ReactNode
+  className?: string
 }
 
-function Layout ({ children }: Props) {
+function Layout ({ children, className }: Props) {
   return (
     <>
       <Head>
@@ -13,9 +14,13 @@ function Layout ({ children }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="main-container">{children}</main>
+      <main className={`main-container ${className}`}>{children}</main>
     </>
   )
+}
+
+Layout.defaultProps = {
+  className: ''
 }
 
 export default Layout
