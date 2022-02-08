@@ -1,0 +1,42 @@
+.icon-star {
+  &::before {
+    transition: transform .3s;
+  }
+  &.is-selected::before {
+    -webkit-text-stroke: 1px var(--main-bg-color);
+    color: var(--main-bg-color);
+  }
+  &:active::before {
+    transform: rotate(calc(360deg * 10));
+  }
+}
+
+.icon-heart {
+  width: 16px;
+  height: 16px;
+  background: var(--main-bg-color);
+  position: relative;
+  transform: rotate(45deg);
+  &::before,
+  &::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    border-radius: 50%;
+    background: var(--main-bg-color);
+  }
+  &::before {
+    left: -50%;
+  }
+  &::after {
+    top: -50%;
+  }
+}
+
+.input-button {
+  input {
+    position: absolute;
+    opacity: 0;
+  }
+}
