@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import styles from '@/styles/tutorial.module.scss'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
+import useFunction from '@/composables/useFunction'
 import Layout from '@/components/Layout'
 import BaseListItem from '@/components/BaseListItem'
 
@@ -25,6 +26,8 @@ export interface Product {
   title: string
 }
 
+const DELAY = 300
+
 async function getProducts() {
   const response = await Promise.all([
     fetch('https://fakestoreapi.com/products/categories').then(res => res.json() as Promise<Categories[]>),
@@ -35,6 +38,7 @@ async function getProducts() {
 
 function Tutorial() {
   const [state, refetch] = useAsync(getProducts);
+  const { debounce, set } = useFunction()
 
   const { loading, data, error } = state as AsyncState<[Categories[], Product[]], unknown>
 
@@ -64,6 +68,11 @@ function Tutorial() {
     setProduct(getValues)
   }
 
+  const saveMyStyles = debounce((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    set(localStorage, 'myStyles', JSON.stringify(checkedProducts))
+  }, DELAY)
+
   return (
     <Layout className={styles['tutorial']}>
       <article className={styles['select-my-style']}>
@@ -90,7 +99,7 @@ function Tutorial() {
           ))}
         </ul>
 
-        <form>
+        <form onSubmit={saveMyStyles}>
           <ul className={styles['main-products']}>
             {filteredProducts.map(({
               id,
