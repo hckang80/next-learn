@@ -13,6 +13,7 @@
     }
   ],
   "rules": {
-    "import/no-anonymous-default-export": ["error", {"allowArrowFunction": true}]
+    "import/no-anonymous-default-export": ["error", {"allowArrowFunction": true}],
+    "semi": ["error", "never"]
   }
 }

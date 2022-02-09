@@ -26,6 +26,6 @@ function BaseListItem ({ children, image, title }: Props) {
 
 BaseListItem.defaultProps = {
   title: ''
-};
+}
 
 export default BaseListItem

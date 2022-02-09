@@ -37,7 +37,7 @@ async function getProducts() {
 }
 
 function Tutorial() {
-  const [state, refetch] = useAsync(getProducts);
+  const [state, refetch] = useAsync(getProducts)
   const { debounce, set } = useFunction()
 
   const { loading, data, error } = state as AsyncState<[Categories[], Product[]], unknown>
@@ -48,7 +48,7 @@ function Tutorial() {
 
   const allCategories: Categories[] = [ALL, ...categories]
 
-  const [selectedCategory, setCategory] = useState(ALL);
+  const [selectedCategory, setCategory] = useState(ALL)
 
   const selectCategory = (category: Categories) => {
     selectedCategory !== category && setCategory(category)
@@ -58,7 +58,7 @@ function Tutorial() {
     ? products.filter(({ category }) => category === selectedCategory)
     : products
 
-  const [checkedProducts, setProduct] = useState<number[]>([]);
+  const [checkedProducts, setProduct] = useState<number[]>([])
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target
