@@ -26,8 +26,6 @@ export interface Product {
   title: string
 }
 
-const DELAY = 300
-
 async function getProducts() {
   const response = await Promise.all([
     fetch('https://fakestoreapi.com/products/categories').then(res => res.json() as Promise<Categories[]>),
@@ -38,7 +36,7 @@ async function getProducts() {
 
 function Tutorial() {
   const [state, refetch] = useAsync(getProducts)
-  const { debounce, set } = useFunction()
+  const { set } = useFunction()
 
   const { loading, data, error } = state as AsyncState<[Categories[], Product[]], unknown>
 
@@ -68,10 +66,10 @@ function Tutorial() {
     setProduct(getValues)
   }
 
-  const saveMyStyles = debounce((e: React.FormEvent<HTMLFormElement>) => {
+  const saveMyStyles = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     set(localStorage, 'myStyles', JSON.stringify(checkedProducts))
-  }, DELAY)
+  }
 
   return (
     <Layout className={styles['tutorial']}>
