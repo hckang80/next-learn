@@ -85,7 +85,7 @@ function Tutorial() {
           </p>
         </header>
 
-        <ul className={styles['main-categories']}>
+        {!loading && (<ul className={styles['main-categories']}>
           {allCategories?.map(category => (
             <li
               className={`${styles['main-categories__item']} ${selectedCategory === category ? styles['is-active'] : ''}`}
@@ -95,7 +95,7 @@ function Tutorial() {
               </button>
             </li>
           ))}
-        </ul>
+        </ul>)}
 
         <form onSubmit={saveMyStyles}>
           <ul className={styles['main-products']}>
