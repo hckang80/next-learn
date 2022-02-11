@@ -1,9 +1,18 @@
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 import Head from 'next/head'
 import Image from 'next/image'
 
 import styles from '@/pages/index.module.css'
 
 export default function Home() {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/tutorial')
+  })
+  
   return (
     <div className={styles.container}>
       <Head>
