@@ -9,9 +9,12 @@ export default function Search() {
 
   const [keyword, setKeyword] = useState('')
 
+  const [searchedList, setSearchedList] = useState([])
+
   const inputKeyword = async ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(target.value)
     const response = await request(`${BASE_URI}/languages?keyword=${target.value}`)
+    setSearchedList(response)
     return response
   }
 
@@ -27,6 +30,14 @@ export default function Search() {
           value={keyword}
         />
       </form>
+
+      {!!searchedList.length && (<div className="searched-list">
+        <ul>
+          {searchedList.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>)}
     </main>
   )
 }
