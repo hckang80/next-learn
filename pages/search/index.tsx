@@ -32,8 +32,13 @@ export default function Search() {
 
   const [selectedList, setSelectedList] = useState<string[]>([])
 
+  const removeDuplicateItem = (item = '') => {
+    selectedList.splice(selectedList.indexOf(item), 1)
+  }
+
   const selectList = (item = '') => {
-    setSelectedList([...selectedList, item])
+    selectedList.includes(item) && removeDuplicateItem(item)
+    setSelectedList([...selectedList, item].slice(-5))
   }
 
   return (
