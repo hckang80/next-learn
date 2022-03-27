@@ -44,7 +44,7 @@ export default function Search() {
       </form>
 
       {!!searchedList.length && (<div className="searched-list">
-        <ul>
+        <ul className="suggestion">
           {searchedList.map((item) => (
             <li key={item}>{item}</li>
           ))}
