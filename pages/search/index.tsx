@@ -30,9 +30,24 @@ export default function Search() {
     inputKeyword(target.value)
   }
 
+  const [selectedList, setSelectedList] = useState<string[]>([])
+
+  const selectList = (item = '') => {
+    setSelectedList([...selectedList, item])
+  }
+
   return (
     <main className="Search">
-      <div className="selected-list"></div>
+      <div className="selected-list">
+        <ul>
+          {selectedList.map((item) => (
+            <li
+              key={item}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
       <form className="search-form">
         <input
           type="text"
@@ -46,7 +61,11 @@ export default function Search() {
       {!!searchedList.length && (<div className="searched-list">
         <ul className="suggestion">
           {searchedList.map((item) => (
-            <li key={item}>{item}</li>
+            <li
+              key={item}
+              onClick={() => selectList(item)}>
+              {item}
+            </li>
           ))}
         </ul>
       </div>)}
