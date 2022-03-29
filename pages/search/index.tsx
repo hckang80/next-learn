@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
 
@@ -40,6 +40,17 @@ export default function Search() {
     selectedList.includes(item) && removeDuplicateItem(item)
     setSelectedList([...selectedList, item].slice(-5))
   }
+
+  const handleList = () => {
+    console.log('handleList')
+  }
+  
+  useEffect(() => {
+    window.addEventListener('keyup', handleList)
+    return () => {
+      window.removeEventListener('keyup', handleList)
+    }
+  }, [])
 
   return (
     <main className="Search">
