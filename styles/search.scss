@@ -54,7 +54,6 @@
   justify-content: center;
   margin: 0 auto;
   flex-wrap: nowrap;
-  width: 800px;
   height: 37.5px;
   margin-top: -100px;
   margin-bottom: 10px;
@@ -63,6 +62,7 @@
 
 .selected-list li {
   display: inline-block;
+  margin: 0 2px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
