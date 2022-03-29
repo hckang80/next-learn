@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
 
@@ -10,6 +10,8 @@ export default function Search() {
   const [keyword, setKeyword] = useState('')
 
   const [searchedList, setSearchedList] = useState([])
+
+  const selectedItemIndex = useRef(0)
 
   const searchList = async (key = '') => {
     const response = await request(`${BASE_URI}/languages?keyword=${key}`)
@@ -41,8 +43,13 @@ export default function Search() {
     setSelectedList([...selectedList, item].slice(-5))
   }
 
-  const handleList = () => {
-    console.log('handleList')
+  const handleList = (event: KeyboardEvent) => {
+    if (!searchedList.length) return
+    if (event.key === 'ArrowDown') {
+      selectedItemIndex.current === searchedList.length && (selectedItemIndex.current = 0)
+      selectedItemIndex.current += 1
+      console.log(selectedItemIndex.current)
+    }
   }
   
   useEffect(() => {
@@ -50,7 +57,7 @@ export default function Search() {
     return () => {
       window.removeEventListener('keyup', handleList)
     }
-  }, [])
+  })
 
   return (
     <main className="Search">
