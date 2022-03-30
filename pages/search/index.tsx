@@ -51,6 +51,12 @@ export default function Search() {
         : selectedItemIndex + 1
       setSelectedItemIndex(index)
     }
+    if (event.key === 'ArrowUp') {
+      const index = selectedItemIndex <= 1
+        ? searchedList.length
+        : selectedItemIndex - 1
+      setSelectedItemIndex(index)
+    }
   }
   
   useEffect(() => {
