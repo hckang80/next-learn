@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
 
@@ -11,7 +11,7 @@ export default function Search() {
 
   const [searchedList, setSearchedList] = useState([])
 
-  const selectedItemIndex = useRef(0)
+  let [selectedItemIndex, setSelectedItemIndex] = useState(0)
 
   const searchList = async (key = '') => {
     const response = await request(`${BASE_URI}/languages?keyword=${key}`)
@@ -46,9 +46,10 @@ export default function Search() {
   const handleList = (event: KeyboardEvent) => {
     if (!searchedList.length) return
     if (event.key === 'ArrowDown') {
-      selectedItemIndex.current === searchedList.length && (selectedItemIndex.current = 0)
-      selectedItemIndex.current += 1
-      console.log(selectedItemIndex.current)
+      const index = selectedItemIndex === searchedList.length
+        ? 1
+        : selectedItemIndex + 1
+      setSelectedItemIndex(index)
     }
   }
   
@@ -83,8 +84,9 @@ export default function Search() {
 
       {!!searchedList.length && (<div className="searched-list">
         <ul className="suggestion">
-          {searchedList.map((item) => (
+          {searchedList.map((item, index) => (
             <li
+              className={selectedItemIndex === index + 1 ? 'suggestion__item--selected' : ''}
               key={item}
               onClick={() => selectList(item)}>
               {item}
