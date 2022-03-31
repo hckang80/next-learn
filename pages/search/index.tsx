@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
+import SelectedList from '@/components/SelectedList'
 
 export default function Search() {
   const BASE_URI = 'https://wr4a6p937i.execute-api.ap-northeast-2.amazonaws.com/dev'
@@ -68,16 +69,7 @@ export default function Search() {
 
   return (
     <main className="Search">
-      <div className="selected-list">
-        <ul>
-          {selectedList.map((item) => (
-            <li
-              key={item}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <SelectedList list={selectedList} />
       <form className="search-form">
         <input
           type="text"
