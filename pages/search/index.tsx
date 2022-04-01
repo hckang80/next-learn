@@ -43,6 +43,8 @@ export default function Search() {
   const selectList = (item = '') => {
     selectedList.includes(item) && removeDuplicateItem(item)
     setSelectedList([...selectedList, item].slice(-5))
+    const changedIndex = searchedList.indexOf(item) + 1 !== selectedItemIndex
+    changedIndex && setSelectedItemIndex(searchedList.indexOf(item) + 1)
   }
 
   const handleList = (event: KeyboardEvent) => {
