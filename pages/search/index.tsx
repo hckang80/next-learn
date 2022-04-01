@@ -59,11 +59,13 @@ export default function Search() {
         : selectedItemIndex - 1
       setSelectedItemIndex(index)
     }
+    if (event.key === 'Enter') {
+      selectedItemIndex && selectList(searchedList[selectedItemIndex - 1])
+    }
   }
 
   const addList = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    selectList(searchedList[selectedItemIndex - 1])
   }
   
   useEffect(() => {
@@ -76,6 +78,7 @@ export default function Search() {
   return (
     <main className="Search">
       <SelectedList list={selectedList} />
+
       <form
         onSubmit={addList}
         className="search-form">
