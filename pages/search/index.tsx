@@ -59,6 +59,11 @@ export default function Search() {
       setSelectedItemIndex(index)
     }
   }
+
+  const addList = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    selectList(searchedList[selectedItemIndex - 1])
+  }
   
   useEffect(() => {
     window.addEventListener('keyup', handleList)
@@ -70,7 +75,9 @@ export default function Search() {
   return (
     <main className="Search">
       <SelectedList list={selectedList} />
-      <form className="search-form">
+      <form
+        onSubmit={addList}
+        className="search-form">
         <input
           type="text"
           placeholder=""
