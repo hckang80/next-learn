@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
 import SelectedList from '@/components/SelectedList'
+import SearchedList from '@/components/SearchedList'
 
 export default function Search() {
   const BASE_URI = 'https://wr4a6p937i.execute-api.ap-northeast-2.amazonaws.com/dev'
@@ -10,7 +11,7 @@ export default function Search() {
 
   const [keyword, setKeyword] = useState('')
 
-  const [searchedList, setSearchedList] = useState([])
+  const [searchedList, setSearchedList] = useState<string[]>([])
 
   let [selectedItemIndex, setSelectedItemIndex] = useState(0)
 
@@ -87,18 +88,13 @@ export default function Search() {
         />
       </form>
 
-      {!!searchedList.length && (<div className="searched-list">
-        <ul className="suggestion">
-          {searchedList.map((item, index) => (
-            <li
-              className={selectedItemIndex === index + 1 ? 'suggestion__item--selected' : ''}
-              key={item}
-              onClick={() => selectList(item)}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>)}
+      {!!searchedList.length &&
+        <SearchedList
+          list={searchedList}
+          currentIndex={selectedItemIndex}
+          handler={selectList}
+        />
+      }
     </main>
   )
 }
