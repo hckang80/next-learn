@@ -90,7 +90,7 @@ export default function Search() {
         <input
           ref={inputEl}
           type="text"
-          placeholder=""
+          placeholder="프로그래밍 언어를 입력하세요."
           className="search-form__input"
           onChange={onChange}
           value={keyword}
