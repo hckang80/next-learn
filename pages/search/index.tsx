@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
 import SelectedList from '@/components/SelectedList'
@@ -70,8 +70,11 @@ export default function Search() {
     event.preventDefault()
   }
   
+  const inputEl = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     window.addEventListener('keyup', handleList)
+    inputEl.current?.focus()
     return () => {
       window.removeEventListener('keyup', handleList)
     }
@@ -85,6 +88,7 @@ export default function Search() {
         onSubmit={addList}
         className="search-form">
         <input
+          ref={inputEl}
           type="text"
           placeholder=""
           className="search-form__input"
