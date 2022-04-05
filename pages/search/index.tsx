@@ -26,7 +26,7 @@ export default function Search() {
     setSearchedList(list)
   }, 500)
 
-  const inputKeyword = useCallback((key: string) => fillList(key), [])
+  const inputKeyword = useCallback((key: string) => fillList(key), [fillList])
 
   const onChange = async ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(target.value)
