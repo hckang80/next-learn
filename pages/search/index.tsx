@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
-import useAsync, { type AsyncState } from '@/composables/useAsync'
 import useFunction from '@/composables/useFunction'
 import SelectedList from '@/components/SelectedList'
 import SearchedList from '@/components/SearchedList'
