@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import useFunction from '@/hooks/useFunction'
+import useStorage from '@/hooks/useStorage'
 import SelectedList from '@/components/SelectedList'
 import SearchedList from '@/components/SearchedList'
 
@@ -7,6 +8,7 @@ export default function Search() {
   const BASE_URI = 'https://wr4a6p937i.execute-api.ap-northeast-2.amazonaws.com/dev'
 
   const { debounce, request } = useFunction()
+  const { getItem, setItem } = useStorage()
 
   const [keyword, setKeyword] = useState('')
 
@@ -15,7 +17,8 @@ export default function Search() {
   let [selectedItemIndex, setSelectedItemIndex] = useState(0)
 
   const searchList = async (key = '') => {
-    const response = await request(`${BASE_URI}/languages?keyword=${key}`)
+    const response = getItem(key) || await request(`${BASE_URI}/languages?keyword=${key}`)
+    !getItem(key) && setItem(key, response)
     return response
   }
 
