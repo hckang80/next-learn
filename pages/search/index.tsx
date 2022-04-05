@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
-import useFunction from '@/composables/useFunction'
+import useFunction from '@/hooks/useFunction'
 import SelectedList from '@/components/SelectedList'
 import SearchedList from '@/components/SearchedList'
 

@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react'
 import styles from '@/styles/tutorial.module.scss'
-import useAsync, { type AsyncState } from '@/composables/useAsync'
-import useFunction from '@/composables/useFunction'
+import useAsync, { type AsyncState } from '@/hooks/useAsync'
+import useFunction from '@/hooks/useFunction'
 import Layout from '@/components/Layout'
 import BaseListItem from '@/components/BaseListItem'
 
