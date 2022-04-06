@@ -1,8 +1,8 @@
 import React from 'react'
 
 type Props = {
-  list: string[],
-  currentIndex: number,
+  list: string[]
+  currentIndex: number
   handler: (item: string) => void
 }
 
